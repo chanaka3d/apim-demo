@@ -46,7 +46,7 @@ export default function TrainSchedule() {
     }
     return (
         <>
-            <Box pb={2}>
+            <Box pb={2} pl={2}>
                 <Typography variant="h3">Train Schedule</Typography>
             </Box>
             <List className={classes.root}>
