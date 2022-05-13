@@ -11,5 +11,6 @@ export const CONFIG = {
     "LOGOUT_URL": "https://dev.apim.com/oidc/logout",
     "REGISTER_ENDPOINT": "https://dev.apim.com/accountrecoveryendpoint/register.do",
     "TENET_DOMAIN": "carbon.super",
-    "COOKIE_PATH": "/"
+    "COOKIE_PATH": "/",
+    "GATEWAY_URL": "https://dev.gw.apim.com/"
 };

@@ -28,6 +28,7 @@ import axiosConfig from './Config/axiosConfig';
 import axios from 'axios';
 import RoleConstant from './Config/RoleConstant';
 import {Grid, Paper} from "@mui/material";
+import TrainSchedule from './TrainSchedule/TrainSchedule';
 
 function loginClick() {
     sendAuthorizationRequest();
@@ -99,15 +100,15 @@ const MainDashBoard = () => {
                         "id": "",
                         "username": response[1].sub,
                     };
-                    axiosConfig.get(process.env.REACT_APP_APIM_USERS_PREFIX + process.env.REACT_APP_API_PREFIX + '/users', {params: {username: jsonData.username}})
-                        .then(function (response) {
-                            localStorage.setItem('username', response.data.username);
-                            initAuthenticatedUserSession(response.data);
-                            window.location.replace('/');
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                    // axiosConfig.get(process.env.REACT_APP_APIM_USERS_PREFIX + process.env.REACT_APP_API_PREFIX + '/users', {params: {username: jsonData.username}})
+                    //     .then(function (response) {
+                    //         localStorage.setItem('username', response.data.username);
+                    //         initAuthenticatedUserSession(response.data);
+                    //         window.location.replace('/');
+                    //     })
+                    //     .catch(function (error) {
+                    //         console.log(error);
+                    //     });
 
                 })
                 .catch((error => {
@@ -186,6 +187,7 @@ const MainDashBoard = () => {
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={5} lg={4}></Grid>
                         {isLoggedIn ? <>
+                            <TrainSchedule />
                         </> : <>
                             <Grid item xs={12} md={5} lg={4}>
                                 <Paper
