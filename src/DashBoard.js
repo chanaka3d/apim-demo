@@ -148,13 +148,13 @@ const MainDashBoard = () => {
                         ><img src='/logo.svg' width={500} /></Box>
                         <Box background='#fff4'>
                             {isLoggedIn ? <>
-                                <Button style={{color: '#fff'}} onClick={() => {
+                                <Button style={{ color: '#fff' }} onClick={() => {
                                     logOutClick()
                                 }}>Logout</Button>
-                            </> : <><Button style={{color: '#fff'}} onClick={() => {
+                            </> : <><Button style={{ color: '#fff' }} onClick={() => {
                                 loginClick()
                             }}>Login</Button>
-                                <Button style={{color: '#fff'}} onClick={() => {
+                                <Button style={{ color: '#fff' }} onClick={() => {
                                     registerClick()
                                 }}>Register</Button></>}
                         </Box>
@@ -171,20 +171,19 @@ const MainDashBoard = () => {
                                 : theme.palette.grey[900],
                         flexGrow: 1,
                         height: '100vh',
-                        overflow: 'auto',
                     }}
                 >
                     <Grid container spacing={3}>
                         <Grid item xs={12}></Grid>
                         {isLoggedIn && <TrainSchedule />}
                         <Marketing />
+                        <Footer />
                     </Grid>
                     {form ? <>
                         <Consumer />
                     </> : <></>}
                 </Box>
             </Container>
-            <Footer />
 
         </BrowserRouter>
     );
