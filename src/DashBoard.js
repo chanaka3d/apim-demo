@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import {sendAuthorizationRequest, sendTokenRequest, sendAuthorizationRequestWithOTP} from "./actions/sign-in";
-import {dispatchLogout} from "./actions/sign-out";
-import {sendRegistration} from "./actions/register";
+import React, { useEffect } from 'react';
+import { sendAuthorizationRequest, sendTokenRequest, sendAuthorizationRequestWithOTP } from "./actions/sign-in";
+import { dispatchLogout } from "./actions/sign-out";
+import { sendRegistration } from "./actions/register";
 import {
     isValidSession,
     getAllSessionParameters,
@@ -11,13 +11,13 @@ import {
     getUserRole
 } from "./actions/session";
 import pkceChallenge from 'pkce-challenge';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {Container} from "@mui/material";
+import { Container } from "@mui/material";
 import Button from '@mui/material/Button';
 import Consumer from './Consumer/Consumer';
 import FinancialAdvisor from './FinanacialAdvisor/FinancialAdvisor';
@@ -27,8 +27,10 @@ import './DashBoard/Dashboard.css';
 import axiosConfig from './Config/axiosConfig';
 import axios from 'axios';
 import RoleConstant from './Config/RoleConstant';
-import {Grid, Paper} from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import TrainSchedule from './TrainSchedule/TrainSchedule';
+import Marketing from './Marketing/Marketing';
+import Footer from './Marketing/Footer';
 
 function loginClick() {
     sendAuthorizationRequest();
@@ -132,93 +134,58 @@ const MainDashBoard = () => {
 
     return (
         <BrowserRouter>
-            <Box sx={{display: 'flex'}}>
-                <CssBaseline/>
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
                 <AppBar
-                    position="fixed"
+                    position="static"
+                    style={{ background: 'url(/header.jpg)', backgroundSize: 'contain', height: 265 }}
                 >
                     <Toolbar>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            sx={{flexGrow: 1}}
-                        >
-                           Consumer Dashboard
-                        </Typography>
-                        {isLoggedIn ? <>
-                            <Button color="inherit" onClick={() => {
-                                logOutClick()
-                            }}>Logout</Button>
-                        </> : <></>}
+                        <Box
+                            background='#fff4'
+                            flex={1}
+                            mt={5}
+                        ><img src='/logo.svg' width={500} /></Box>
+                        <Box background='#fff4'>
+                            {isLoggedIn ? <>
+                                <Button style={{color: '#fff'}} onClick={() => {
+                                    logOutClick()
+                                }}>Logout</Button>
+                            </> : <><Button style={{color: '#fff'}} onClick={() => {
+                                loginClick()
+                            }}>Login</Button>
+                                <Button style={{color: '#fff'}} onClick={() => {
+                                    registerClick()
+                                }}>Register</Button></>}
+                        </Box>
                     </Toolbar>
                 </AppBar>
             </Box>
-            <Box
-                component="nav"
-                sx={{
-                    backgroundColor: (theme) =>
-                        theme.palette.mode === 'light'
-                            ? theme.palette.grey[100]
-                            : theme.palette.grey[900],
-                    flexGrow: 1,
-                    width: {sm: drawerWidth},
-                    height: '9vh',
-                    flexShrink: {sm: 0},
-                    overflow: 'auto'
-                }}
-                aria-label="mailbox folders"
-            >
-            </Box>
-            <Box
-                component="main"
-                sx={{
-                    backgroundColor: (theme) =>
-                        theme.palette.mode === 'light'
-                            ? theme.palette.grey[100]
-                            : theme.palette.grey[900],
-                    flexGrow: 1,
-                    height: '100vh',
-                    overflow: 'auto',
-                }}
-            >
-                <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
+            <Container maxWidth="lg">
+                <Box
+                    component="main"
+                    sx={{
+                        backgroundColor: (theme) =>
+                            theme.palette.mode === 'light'
+                                ? theme.palette.grey[100]
+                                : theme.palette.grey[900],
+                        flexGrow: 1,
+                        height: '100vh',
+                        overflow: 'auto',
+                    }}
+                >
                     <Grid container spacing={3}>
-                        <Grid item xs={12} md={5} lg={4}></Grid>
-                        {isLoggedIn ? <>
-                            <TrainSchedule />
-                        </> : <>
-                            <Grid item xs={12} md={5} lg={4}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    {userInLocalStore && <>
-                                        <Button color="inherit" onClick={() => {
-                                            loginWithOTPClick()
-                                        }}>Login With OTP</Button>
-                                    </>}
-                                    <Button color="inherit" onClick={() => {
-                                        loginClick()
-                                    }}>Login</Button>
-                                    <Button color="inherit" onClick={() => {
-                                        registerClick()
-                                    }}>Register</Button>
-                                </Paper>
-                            </Grid>
-                        </>}
-                        <Grid item xs={12} md={5} lg={4}></Grid>
+                        <Grid item xs={12}></Grid>
+                        {isLoggedIn && <TrainSchedule />}
+                        <Marketing />
                     </Grid>
                     {form ? <>
-                        <Consumer/>
+                        <Consumer />
                     </> : <></>}
-                </Container>
-            </Box>
+                </Box>
+            </Container>
+            <Footer />
+
         </BrowserRouter>
     );
 }
