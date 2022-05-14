@@ -6,31 +6,23 @@ import {
     isValidSession,
     getAllSessionParameters,
     decodeIdToken,
-    initAuthenticatedUserSession,
-    initAuthenticatedRoles,
     getUserRole
 } from "./actions/session";
-import pkceChallenge from 'pkce-challenge';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { Container } from "@mui/material";
 import Button from '@mui/material/Button';
 import Consumer from './Consumer/Consumer';
-import FinancialAdvisor from './FinanacialAdvisor/FinancialAdvisor';
-import MeterReader from './MeterReader/MeterReader';
-import Form from './Form/Form';
 import './DashBoard/Dashboard.css';
-import axiosConfig from './Config/axiosConfig';
-import axios from 'axios';
 import RoleConstant from './Config/RoleConstant';
-import { Grid, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
 import TrainSchedule from './TrainSchedule/TrainSchedule';
 import Marketing from './Marketing/Marketing';
 import Footer from './Marketing/Footer';
+import TopMenu from './Components/TopMenu';
 
 function loginClick() {
     sendAuthorizationRequest();
@@ -47,23 +39,6 @@ function logOutClick() {
 function registerClick() {
     sendRegistration();
 }
-
-function getRole(data) {
-    for (var i = 0; i < data.length; i++) {
-        switch (data) {
-            case RoleConstant.consumer:
-                break;
-            case RoleConstant.meterReader:
-                break;
-            case RoleConstant.finance:
-                break;
-            case RoleConstant.admin:
-                break;
-        }
-        return data[i];
-    }
-}
-
 const drawerWidth = 240;
 
 const MainDashBoard = () => {
@@ -133,49 +108,45 @@ const MainDashBoard = () => {
     }
 
     return (
-        <BrowserRouter>
-            <Box sx={{ display: 'flex' }}>
-                <CssBaseline />
-                <AppBar
-                    position="static"
-                    style={{ background: 'url(/header.jpg)', backgroundSize: 'contain', height: 265 }}
-                >
-                    <Toolbar>
-                        <Box
-                            background='#fff4'
-                            flex={1}
-                            mt={5}
-                        ><img src='/logo.svg' width={500} /></Box>
-                        <Box background='#fff4'>
-                            {isLoggedIn ? <>
-                                <Button style={{ color: '#fff' }} onClick={() => {
-                                    logOutClick()
-                                }}>Logout</Button>
-                            </> : <><Button style={{ color: '#fff' }} onClick={() => {
-                                loginClick()
-                            }}>Login</Button>
-                                <Button style={{ color: '#fff' }} onClick={() => {
-                                    registerClick()
-                                }}>Register</Button></>}
-                        </Box>
-                    </Toolbar>
-                </AppBar>
-            </Box>
-            <Container maxWidth="lg">
+        <BrowserRouter><Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar
+                position="static"
+                style={{ background: 'url(/header.jpg)', backgroundSize: 'contain', height: 265 }}
+            >
+                <Toolbar>
+                    <Box
+                        background='#fff4'
+                        flex={1}
+                        mt={5}
+                    ><img src='/logo.svg' width={500} /></Box>
+                    <Box background='#fff4'>
+                        {isLoggedIn ? <>
+                            <Button style={{ color: '#fff' }} onClick={() => {
+                                logOutClick();
+                            }}>Logout</Button>
+                        </> : <><Button style={{ color: '#fff' }} onClick={() => {
+                            loginClick();
+                        }}>Login</Button>
+                            <Button style={{ color: '#fff' }} onClick={() => {
+                                registerClick();
+                            }}>Register</Button></>}
+                    </Box>
+                </Toolbar>
+            </AppBar>
+        </Box><Container maxWidth="lg">
                 <Box
                     component="main"
                     sx={{
-                        backgroundColor: (theme) =>
-                            theme.palette.mode === 'light'
-                                ? theme.palette.grey[100]
-                                : theme.palette.grey[900],
+                        backgroundColor: (theme) => theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
                         flexGrow: 1,
                         height: '100vh',
                     }}
                 >
                     <Grid container spacing={3}>
-                        <Grid item xs={12}></Grid>
-                        {isLoggedIn && <TrainSchedule />}
+                        {isLoggedIn && <TopMenu />}
                         <Marketing />
                         <Footer />
                     </Grid>
@@ -183,9 +154,8 @@ const MainDashBoard = () => {
                         <Consumer />
                     </> : <></>}
                 </Box>
-            </Container>
+            </Container></BrowserRouter>
 
-        </BrowserRouter>
     );
 }
 
