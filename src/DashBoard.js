@@ -146,7 +146,9 @@ const MainDashBoard = () => {
                     }}
                 >
                     <Grid container spacing={3}>
-                        {isLoggedIn && <TopMenu />}
+                        {isLoggedIn && <Grid item xs={12}>
+                            <TopMenu />
+                        </Grid>}
                         <Marketing />
                         <Footer />
                     </Grid>
