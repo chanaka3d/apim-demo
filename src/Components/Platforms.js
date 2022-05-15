@@ -31,7 +31,7 @@ export default function Platforms() {
     const classes = useStyles();
     const [schedule, setSchedule] = useState(null);
     useEffect(() => {
-        axiosConfig.get('/information/1.0.5/platforms', {params: {}})
+        axiosConfig.get('/infodesk/1/platforms', {params: {}})
             .then(function (response) {
                 console.log(response.data);
                 setSchedule(response.data);

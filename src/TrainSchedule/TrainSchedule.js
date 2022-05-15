@@ -31,7 +31,7 @@ export default function TrainSchedule() {
     const classes = useStyles();
     const [schedule, setSchedule] = useState(null);
     useEffect(() => {
-        axiosConfig.get('/information/1.0.5/sheds', {params: {}})
+        axiosConfig.get('/infodesk/1/sheds', {params: {}})
             .then(function (response) {
                 console.log(response.data);
                 setSchedule(response.data);
